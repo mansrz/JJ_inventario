@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>750</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QCalendarWidget" name="calendarWidget">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>190</y>
+       <width>448</width>
+       <height>172</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>20</y>
+       <width>471</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font-size:34px;</string>
+     </property>
+     <property name="text">
+      <string>Bienvenidos  a la aplicación</string>
+     </property>
+    </widget>
+    <widget class="KLed" name="kled">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>30</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMen">
+    <property name="title">
+     <string>Menú</string>
+    </property>
+    <addaction name="actionCr_ditos"/>
+   </widget>
+   <widget class="QMenu" name="menuClientes">
+    <property name="title">
+     <string>Clientes</string>
+    </property>
+    <addaction name="actionBuscar"/>
+    <addaction name="actionMantenimiento"/>
+   </widget>
+   <widget class="QMenu" name="menuInventario">
+    <property name="title">
+     <string>Inventario</string>
+    </property>
+    <addaction name="actionBuscar_2"/>
+    <addaction name="actionMantenimiento_2"/>
+   </widget>
+   <widget class="QMenu" name="menuFactura">
+    <property name="title">
+     <string>Factura</string>
+    </property>
+    <addaction name="actionBuscar_3"/>
+    <addaction name="actionGenerar"/>
+   </widget>
+   <addaction name="menuMen"/>
+   <addaction name="menuClientes"/>
+   <addaction name="menuInventario"/>
+   <addaction name="menuFactura"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionCr_ditos">
+   <property name="text">
+    <string>Créditos</string>
+   </property>
+  </action>
+  <action name="actionBuscar">
+   <property name="text">
+    <string>Buscar</string>
+   </property>
+  </action>
+  <action name="actionMantenimiento">
+   <property name="text">
+    <string>Mantenimiento</string>
+   </property>
+  </action>
+  <action name="actionBuscar_2">
+   <property name="text">
+    <string>Buscar</string>
+   </property>
+  </action>
+  <action name="actionMantenimiento_2">
+   <property name="text">
+    <string>Mantenimiento</string>
+   </property>
+  </action>
+  <action name="actionBuscar_3">
+   <property name="text">
+    <string>Buscar</string>
+   </property>
+  </action>
+  <action name="actionGenerar">
+   <property name="text">
+    <string>Generar</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::ApplicationShortcut</enum>
+   </property>
+   <property name="iconVisibleInMenu">
+    <bool>true</bool>
+   </property>
+   <property name="priority">
+    <enum>QAction::NormalPriority</enum>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KLed</class>
+   <extends>QWidget</extends>
+   <header>kled.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
