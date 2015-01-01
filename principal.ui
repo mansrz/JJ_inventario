@@ -77,7 +77,7 @@
      <string>Clientes</string>
     </property>
     <addaction name="actionBuscar"/>
-    <addaction name="actionMantenimiento"/>
+    <addaction name="action_cliente"/>
    </widget>
    <widget class="QMenu" name="menuInventario">
     <property name="title">
@@ -109,7 +109,7 @@
     <string>Buscar</string>
    </property>
   </action>
-  <action name="actionMantenimiento">
+  <action name="action_cliente">
    <property name="text">
     <string>Mantenimiento</string>
    </property>
