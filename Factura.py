@@ -6,6 +6,7 @@ class Factura(Objeto):
   cliente = Cliente()
   fecha = ''
   modo = Modo()
+  detalles = []
   transaccion = ''
   headernames = ['Cliente','Fecha','Modo','Transaccion']
   atributos = 'factura_id, factura_cliente, factura_fecha,\
@@ -31,7 +32,7 @@ class Factura(Objeto):
     print query
     conexion = self.conexion.getConnection()
     cursor= conexion.cursor()
-    cursor.execute(query,(self.cliente.id,self.fecha,self.modo.id,self.transaccion))
+    cursor.execute(query,(self.cliente.id,self.fecha,self.modo.id,self.transaccion,self.id))
     conexion.commit()
     cursor.close()
 
@@ -53,4 +54,12 @@ class Factura(Objeto):
     self.cliente.consultar()
     self.modo.consultar()
 
+  def obtenerDetalles(self):
+    detalle = Detalle()
+    lista = detalle.cargar_todos()
+    for detalle in lista:
+      if detalle.factura == self.id:
+        self.detalles.append(detalle)
 
+
+      
