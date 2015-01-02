@@ -50,6 +50,13 @@ class VentanaFactura(QtGui.QDialog, factura_ui):
 
   def inicializar(self):
     self.btn_agregar.clicked.connect(self.agregar)
+    cliente = Cliente()
+    modo = Modo()
+    for p in cliente.consultar_todos():
+      self.cbo_cliente.addItem(p.nombre,p.id)
+    for p in modo.consultar_todos():
+      self.cbo_modo.addItem(p.nombre,p.id)
+ 
      
   def agregar(self):
     detalle = VentanaDetalle()
