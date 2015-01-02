@@ -41,6 +41,8 @@ class Producto(Objeto):
     return lista
 
   def mapeardatos(self, datarow):
+    print self.id
+    print datarow
     self.id = datarow[0]
     self.nombre = datarow[1]
     self.precio = datarow[2]

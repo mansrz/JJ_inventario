@@ -5,9 +5,97 @@ from PyQt4.QtGui import *
 import re
 from Cliente import *
 from Conexion import *
+from Producto import *
+from Detalle import *
+from Factura import *
+from Modo import *
 #Convert ui to Class
 principal_ui = uic.loadUiType('principal.ui')[0]
 cliente_ui = uic.loadUiType('cliente.ui')[0]
+producto_ui = uic.loadUiType('producto.ui')[0]
+factura_ui = uic.loadUiType('factura.ui')[0]
+detalle_ui = uic.loadUiType('detalle.ui')[0]
+
+class VentanaDetalle(QtGui.QDialog, detalle_ui):
+  detalle = Detalle()
+  producto = Producto()
+
+  def __init__(self, parent=None):
+    QtGui.QDialog.__init__(self, parent)
+    self.setupUi(self)
+    self.inicializar()
+  
+  def inicializar(self):
+    self.btn_guardar.clicked.connect(self.guardar)
+    productos = self.producto.consultar_todos()
+    print len(productos)
+    for p in productos:
+      self.cbo_producto.addItem(p.nombre,p.id)
+    pass
+
+  def guardar(self):
+    self.detalle.producto.id = (self.cbo_producto.currentIndex()+1)
+    self.detalle.cantidad = str(self.txt_cantidad.text())
+    self.detalle.descuento = str(self.txt_descuento.text())
+    self.detalle.producto.consultar()
+    self.close()
+
+class VentanaFactura(QtGui.QDialog, factura_ui):
+  factura = Factura()
+  detalles = []
+  def __init__(self, parent=None):
+    QtGui.QDialog.__init__(self, parent)
+    self.setupUi(self)
+    self.inicializar()
+
+  def inicializar(self):
+    self.btn_agregar.clicked.connect(self.agregar)
+     
+  def agregar(self):
+    detalle = VentanaDetalle()
+    detalle.exec_()
+    d = detalle.detalle
+    self.detalles.append(d)
+    d = None
+    print d
+    detalle = None
+    self.actualizar()
+   
+  def actualizar(self):
+    model = QStandardItemModel()
+    model.setColumnCount(3)
+    model.setHorizontalHeaderLabels(Detalle.headernames)
+    for d in self.detalles:
+      li = [d.producto.nombre, d.cantidad, d.descuento]
+      row = []
+      for name in li:
+        item = QStandardItem(str(name))
+        item.setEditable(False)
+        row.append(item)
+      model.appendRow(row)
+    self.tb_detalles.setModel(model)
+
+
+
+
+class VentanaProducto(QtGui.QDialog, producto_ui):
+  producto = Producto()
+  def __init__(self, parent=None):
+    QtGui.QDialog.__init__(self, parent)
+    self.setupUi(self)
+    self.inicializar()
+
+  def inicializar(self):
+    self.btn_guardar.clicked.connect(self.guardar)
+
+
+  def guardar(self):
+    self.producto.nombre = str(self.txt_nombre.text())
+    self.producto.precio = str(self.txt_precio.text())
+    self.producto.stock = str(self.txt_stock.text())
+    self.producto.guardar()
+
+
 
 class VentanaCliente(QtGui.QDialog, cliente_ui):
   cliente = Cliente()
@@ -68,6 +156,16 @@ class VentanaPrincipal(QtGui.QMainWindow, principal_ui):
 
   def inicializar(self):
     self.action_cliente.triggered.connect(self.Abrir_cliente)
+    self.action_producto.triggered.connect(self.Abrir_producto)
+    self.action_factura.triggered.connect(self.Abrir_factura)
+
+  def Abrir_factura(self):
+    factura = VentanaFactura()
+    factura.exec_()
+
+  def Abrir_producto(self):
+    producto = VentanaProducto()
+    producto.exec_()
 
   def Abrir_cliente(self):
     cliente = VentanaCliente()

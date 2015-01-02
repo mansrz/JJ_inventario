@@ -84,14 +84,14 @@
      <string>Inventario</string>
     </property>
     <addaction name="actionBuscar_2"/>
-    <addaction name="actionMantenimiento_2"/>
+    <addaction name="action_producto"/>
    </widget>
    <widget class="QMenu" name="menuFactura">
     <property name="title">
      <string>Factura</string>
     </property>
     <addaction name="actionBuscar_3"/>
-    <addaction name="actionGenerar"/>
+    <addaction name="action_factura"/>
    </widget>
    <addaction name="menuMen"/>
    <addaction name="menuClientes"/>
@@ -119,7 +119,7 @@
     <string>Buscar</string>
    </property>
   </action>
-  <action name="actionMantenimiento_2">
+  <action name="action_producto">
    <property name="text">
     <string>Mantenimiento</string>
    </property>
@@ -129,7 +129,7 @@
     <string>Buscar</string>
    </property>
   </action>
-  <action name="actionGenerar">
+  <action name="action_factura">
    <property name="text">
     <string>Generar</string>
    </property>

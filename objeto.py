@@ -41,16 +41,6 @@ class Objeto():
   def modificar(self):
     pass
   
-  def enlistar(self, listas):
-#lista=[]
-#   for r in result: 
-#     libro = Libro()
-#     libro.mapeardatos(r)
-#     lista.append(libro)
-    pass 
-
-
-
   def consultar_todos(self):
     lista=[]
     query = self.query_select_all
@@ -59,7 +49,9 @@ class Objeto():
     cursor = conexion.cursor()
     cursor.execute(query)
     result = cursor.fetchall()
+    print result
     lista = self.enlistar(result)
+    print len(lista)
     cursor.close()
     return lista
 
@@ -72,9 +64,8 @@ class Objeto():
     cursor = conexion.cursor()
     cursor.execute(query,(self.id,))
     result = cursor.fetchall()
-    mapeardatos(result)
+    self.mapeardatos(result[0])
     cursor.close()
-    return lista
  
   def eliminar(self):
     query = self.query_delete 

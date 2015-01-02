@@ -1,10 +1,10 @@
 from Conexion import *
-from Objeto import * 
+from objeto import * 
 class Modo(Objeto):
   nombre = ''
   detalles = ''
   headernames = ['Nombre','Detalles']
-  atributos = ['modo_id','modo_nombre','modo_detalles']
+  atributos = 'modo_id , modo_nombre , modo_detalles'
   tabla = ' modo'
   def __init__(self):
     self.inicializar()
