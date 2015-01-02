@@ -32,6 +32,7 @@ CREATE TABLE `Cliente` (
   `cliente_nacimiento` datetime DEFAULT NULL,
   `cliente_telefono` varchar(45) DEFAULT NULL,
   `cliente_mail` varchar(45) DEFAULT NULL,
+  `cliente_cedula` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`cliente_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -42,7 +43,7 @@ CREATE TABLE `Cliente` (
 
 LOCK TABLES `Cliente` WRITE;
 /*!40000 ALTER TABLE `Cliente` DISABLE KEYS */;
-INSERT INTO `Cliente` VALUES (1,'iuhiuh','kjnkj','kjbnkjb','0000-00-00 00:00:00','kj','kjh'),(2,'asdasd','asdasd','asdasd','2000-01-19 00:00:00','asdasd','rgsdfg');
+INSERT INTO `Cliente` VALUES (1,'iuhiuh','kjnkj','kjbnkjb','0000-00-00 00:00:00','kj','kjh',NULL),(2,'asdasd','asdasd','asdasd','2000-01-19 00:00:00','asdasd','rgsdfg',NULL);
 /*!40000 ALTER TABLE `Cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,6 +128,7 @@ CREATE TABLE `Modo` (
 
 LOCK TABLES `Modo` WRITE;
 /*!40000 ALTER TABLE `Modo` DISABLE KEYS */;
+INSERT INTO `Modo` VALUES (1,'puerto1','d');
 /*!40000 ALTER TABLE `Modo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,4 +167,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-01-01 20:25:50
+-- Dump completed on 2015-01-02 11:56:25

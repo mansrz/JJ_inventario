@@ -69,7 +69,7 @@
        <string>Guardar</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>120</x>
@@ -92,6 +92,13 @@
           <widget class="QLabel" name="label_2">
            <property name="text">
             <string>Apellido</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Cedula</string>
            </property>
           </widget>
          </item>
@@ -132,6 +139,9 @@
          </item>
          <item>
           <widget class="QLineEdit" name="txt_apellido"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="txt_cedula"/>
          </item>
          <item>
           <widget class="QLineEdit" name="txt_direccion"/>

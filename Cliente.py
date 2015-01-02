@@ -6,10 +6,11 @@ class Cliente(Objeto):
   direccion = ''
   nacimiento = ''
   telefono = ''
+  cedula = ''
   mail = ''
-  headernames = ['Nombre','Apellido','Direccion','Fecha de Nacimiento','Telefono','Mail']
+  headernames = ['Nombre','Apellido','Cedula','Direccion','Fecha de Nacimiento','Telefono','Mail']
   atributos = 'cliente_id, cliente_nombre, cliente_apellido, cliente_direccion, cliente_nacimiento,\
-              cliente_telefono, cliente_mail '
+              cliente_telefono, cliente_mail,cliente_cedula '
   tabla = ' cliente'
   def __init__(self):
     self.inicializar()
@@ -18,10 +19,10 @@ class Cliente(Objeto):
     pass
      #TODO
   def guardar(self):
-    query = self.query_insert + ' %s,%s,%s,%s,%s,%s,%s '+self.query_insert_end
+    query = self.query_insert + ' %s,%s,%s,%s,%s,%s,%s,%s '+self.query_insert_end
     conexion = self.conexion.getConnection()
     cursor= conexion.cursor()
-    cursor.execute(query,(str(self.contar()),self.nombre,self.apellido,self.direccion,str(self.nacimiento),self.telefono,self.mail))
+    cursor.execute(query,(str(self.contar()),self.nombre,self.apellido,self.direccion,str(self.nacimiento),self.telefono,self.mail,self.cedula))
     conexion.commit()
     cursor.close()
     print query
@@ -29,11 +30,11 @@ class Cliente(Objeto):
   def modificar(self):
     query = (self.query_update+' cliente_nombre = %s , cliente_apellido = %s\
         , cliente_direccion = %s , cliente_nacimiento = %s , cliente_telefono = %s , \
-        cliente_mail = %s '+self.query_update_end)
+        cliente_mail = %s, cliente_cedula= %s '+self.query_update_end)
     print query
     conexion = self.conexion.getConnection()
     cursor= conexion.cursor()
-    cursor.execute(query,(self.nombre,self.apellido,self.direccion,str(self.nacimiento),self.telefono,self.mail,self.id))
+    cursor.execute(query,(self.nombre,self.apellido,self.direccion,str(self.nacimiento),self.telefono,self.mail,self.cedula,self.id))
     conexion.commit()
     cursor.close()
 
@@ -54,4 +55,5 @@ class Cliente(Objeto):
     self.nacimiento = datarow[4]
     self.telefono = datarow[5]
     self.mail = datarow[6]
+    self.cedula = datarow[7]
    

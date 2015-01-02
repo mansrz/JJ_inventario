@@ -133,6 +133,7 @@ class VentanaCliente(QtGui.QDialog, cliente_ui):
     self.cliente.direccion = str(self.txt_direccion.text())
     self.cliente.telefono = str(self.txt_telefono.text())
     self.cliente.mail = str(self.txt_mail.text())
+    self.cliente.cedula = str(self.txt_cedula.text())
     var_time = self.txt_nacimiento.date()
     self.cliente.nacimiento = var_time.toPyDate()
     self.cliente.guardar()
@@ -142,7 +143,7 @@ class VentanaCliente(QtGui.QDialog, cliente_ui):
     model.setColumnCount(6)
     model.setHorizontalHeaderLabels(self.cliente.headernames)
     for cliente_o in self.cliente.consultar_todos():
-      li = [cliente_o.nombre, cliente_o.apellido, cliente_o.direccion,cliente_o.nacimiento,cliente_o.telefono,cliente_o.mail]
+      li = [cliente_o.nombre, cliente_o.apellido,cliente_o.cedula, cliente_o.direccion,cliente_o.nacimiento,cliente_o.telefono,cliente_o.mail]
       row = []
       for name in li:
         item = QStandardItem(str(name))
