@@ -33,7 +33,7 @@ CREATE TABLE `Cliente` (
   `cliente_telefono` varchar(45) DEFAULT NULL,
   `cliente_mail` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`cliente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `Cliente` (
 
 LOCK TABLES `Cliente` WRITE;
 /*!40000 ALTER TABLE `Cliente` DISABLE KEYS */;
-INSERT INTO `Cliente` VALUES (1,'iuhiuh','kjnkj','kjbnkjb','0000-00-00 00:00:00','kj','kjh');
+INSERT INTO `Cliente` VALUES (1,'iuhiuh','kjnkj','kjbnkjb','0000-00-00 00:00:00','kj','kjh'),(2,'asdasd','asdasd','asdasd','2000-01-19 00:00:00','asdasd','rgsdfg');
 /*!40000 ALTER TABLE `Cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,12 +54,12 @@ DROP TABLE IF EXISTS `Detalle`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Detalle` (
-  `detalle_secuencia` int(11) NOT NULL,
+  `detalle_id` int(11) NOT NULL,
   `detalle_factura` int(11) NOT NULL,
   `detalle_producto` int(11) DEFAULT NULL,
   `detalle_cantidad` int(11) DEFAULT NULL,
   `detalle_descuento` decimal(10,0) DEFAULT NULL,
-  PRIMARY KEY (`detalle_secuencia`,`detalle_factura`),
+  PRIMARY KEY (`detalle_id`,`detalle_factura`),
   KEY `fk_Detalle_factura_idx` (`detalle_factura`),
   KEY `fk_Detalle_Producto_idx` (`detalle_producto`),
   CONSTRAINT `fk_Detalle_factura` FOREIGN KEY (`detalle_factura`) REFERENCES `Factura` (`factura_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -152,6 +152,7 @@ CREATE TABLE `Producto` (
 
 LOCK TABLES `Producto` WRITE;
 /*!40000 ALTER TABLE `Producto` DISABLE KEYS */;
+INSERT INTO `Producto` VALUES (1,'Prod',23,4),(2,'Prod2',12,23);
 /*!40000 ALTER TABLE `Producto` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -164,4 +165,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-01-01 11:47:34
+-- Dump completed on 2015-01-01 20:25:50
