@@ -62,9 +62,7 @@ CREATE TABLE `Detalle` (
   `detalle_descuento` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`detalle_id`,`detalle_factura`),
   KEY `fk_Detalle_factura_idx` (`detalle_factura`),
-  KEY `fk_Detalle_Producto_idx` (`detalle_producto`),
-  CONSTRAINT `fk_Detalle_factura` FOREIGN KEY (`detalle_factura`) REFERENCES `Factura` (`factura_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Detalle_Producto` FOREIGN KEY (`detalle_producto`) REFERENCES `Producto` (`producto_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_Detalle_Producto_idx` (`detalle_producto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

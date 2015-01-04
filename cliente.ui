@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>568</width>
+    <width>554</width>
     <height>450</height>
    </rect>
   </property>
@@ -35,7 +35,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -45,9 +45,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>120</y>
+        <y>130</y>
         <width>511</width>
-        <height>261</height>
+        <height>251</height>
        </rect>
       </property>
      </widget>
@@ -69,17 +69,30 @@
        <string>CONSULTAR CLIENTE</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QLineEdit" name="txt_buscar">
       <property name="geometry">
        <rect>
         <x>200</x>
-        <y>70</y>
+        <y>80</y>
         <width>191</width>
         <height>27</height>
        </rect>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radioButton">
+     <widget class="QPushButton" name="btn_buscar">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>80</y>
+        <width>98</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Buscar</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_nombre">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -89,10 +102,10 @@
        </rect>
       </property>
       <property name="text">
-       <string>Buscar por nombres</string>
+       <string>Buscar por Nombre</string>
       </property>
      </widget>
-     <widget class="QRadioButton" name="radioButton_2">
+     <widget class="QRadioButton" name="radioButton_apellido">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -102,20 +115,20 @@
        </rect>
       </property>
       <property name="text">
-       <string>Buscar por cedula</string>
+       <string>Buscar por Apellido</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QRadioButton" name="radioButton_cedula">
       <property name="geometry">
        <rect>
-        <x>420</x>
-        <y>70</y>
-        <width>98</width>
-        <height>27</height>
+        <x>20</x>
+        <y>100</y>
+        <width>161</width>
+        <height>22</height>
        </rect>
       </property>
       <property name="text">
-       <string>Buscar</string>
+       <string>Buscar por Cedula</string>
       </property>
      </widget>
     </widget>
@@ -253,17 +266,58 @@
      <attribute name="title">
       <string>Eliminar</string>
      </attribute>
-     <widget class="QPushButton" name="btn_eliminar">
+     <widget class="QPushButton" name="btn_eliminar_selec">
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>330</y>
-        <width>98</width>
+        <x>100</x>
+        <y>350</y>
+        <width>131</width>
         <height>27</height>
        </rect>
       </property>
       <property name="text">
-       <string>Eliminar</string>
+       <string>Eliminar Seleccion</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_eliminar_todo">
+      <property name="geometry">
+       <rect>
+        <x>300</x>
+        <y>350</y>
+        <width>131</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Eliminar Todo</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>20</y>
+        <width>241</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>ELIMINAR CLIENTE</string>
+      </property>
+     </widget>
+     <widget class="QTableView" name="tb_clientes_eliminar">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>60</y>
+        <width>511</width>
+        <height>281</height>
+       </rect>
       </property>
      </widget>
     </widget>

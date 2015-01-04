@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>568</width>
-    <height>450</height>
+    <width>607</width>
+    <height>460</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
     <rect>
      <x>10</x>
      <y>20</y>
-     <width>541</width>
+     <width>591</width>
      <height>421</height>
     </rect>
    </property>
@@ -30,7 +30,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>531</width>
+      <width>581</width>
       <height>421</height>
      </rect>
     </property>
@@ -41,14 +41,146 @@
      <attribute name="title">
       <string>Consultar</string>
      </attribute>
-     <widget class="QTableView" name="tb_clientes">
+     <widget class="QTableView" name="tb_productos">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>10</y>
+        <x>30</x>
+        <y>150</y>
         <width>511</width>
-        <height>371</height>
+        <height>231</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txt_buscar">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>105</y>
+        <width>221</width>
+        <height>27</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_codigo">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>60</y>
+        <width>161</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Buscar por Codigo</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>20</y>
+        <width>301</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>CONSULTAR PRODUCTO</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_fecha">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>60</y>
+        <width>141</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Buscar por Fecha</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_buscar">
+      <property name="geometry">
+       <rect>
+        <x>440</x>
+        <y>105</y>
+        <width>98</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Buscar</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_descripcion">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>60</y>
+        <width>181</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Buscar por Descripcion</string>
+      </property>
+     </widget>
+     <widget class="QDateEdit" name="txt_hasta">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>120</y>
+        <width>101</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="calendarPopup">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QDateEdit" name="txt_desde">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>90</y>
+        <width>101</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="calendarPopup">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>95</y>
+        <width>41</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Desde</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_15">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>125</y>
+        <width>41</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Hasta</string>
       </property>
      </widget>
     </widget>
@@ -59,8 +191,8 @@
      <widget class="QPushButton" name="btn_guardar">
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>330</y>
+        <x>240</x>
+        <y>350</y>
         <width>98</width>
         <height>27</height>
        </rect>
@@ -69,53 +201,190 @@
        <string>Guardar</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
-        <x>90</x>
+        <x>10</x>
         <y>60</y>
         <width>311</width>
-        <height>171</height>
+        <height>262</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="1">
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLineEdit" name="txt_codigo"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="txt_descripcion"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="txt_cantXunidad"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="txt_precioVenta"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="txt_precioCompra"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="txt_precioImpuesto">
+           <property name="text">
+            <string/>
+           </property>
+           <property name="dragEnabled">
+            <bool>true</bool>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="txt_uniExistencia"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="txt_uniPedido"/>
+         </item>
+        </layout>
+       </item>
        <item row="0" column="0">
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Codigo</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QLabel" name="label">
            <property name="text">
-            <string>Nombre</string>
+            <string>Descripcion</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>Cantidad Por Unidad</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Precio</string>
+            <string>Precio de Venta</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Precio de Compra</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Precio con Impuesto</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Unidad en Existencia</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Stock</string>
+            <string>Unidad en Pedido</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>150</x>
+        <y>20</y>
+        <width>281</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>INGRESAR PRODUCTO</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>60</y>
+        <width>231</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Fecha</string>
            </property>
           </widget>
          </item>
         </layout>
        </item>
        <item row="0" column="1">
-        <layout class="QVBoxLayout" name="verticalLayout">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="QLineEdit" name="txt_nombre"/>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="txt_precio"/>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="txt_stock"/>
+          <widget class="QDateEdit" name="txt_fecha">
+           <property name="calendarPopup">
+            <bool>true</bool>
+           </property>
+          </widget>
          </item>
         </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>330</x>
+        <y>110</y>
+        <width>231</width>
+        <height>121</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>Comentario</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPlainTextEdit" name="txt_comentario"/>
        </item>
       </layout>
      </widget>
@@ -124,17 +393,58 @@
      <attribute name="title">
       <string>Eliminar</string>
      </attribute>
-     <widget class="QPushButton" name="btn_eliminar">
+     <widget class="QLabel" name="label_12">
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>330</y>
-        <width>98</width>
+        <x>150</x>
+        <y>20</y>
+        <width>271</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>ELIMINAR PRODUCTO</string>
+      </property>
+     </widget>
+     <widget class="QTableView" name="tb_productos_eliminar">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>50</y>
+        <width>511</width>
+        <height>281</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_eliminar_selec">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>350</y>
+        <width>131</width>
         <height>27</height>
        </rect>
       </property>
       <property name="text">
-       <string>Eliminar</string>
+       <string>Eliminar Seleccion</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btn_eliminar_todo">
+      <property name="geometry">
+       <rect>
+        <x>320</x>
+        <y>350</y>
+        <width>131</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Eliminar Todo</string>
       </property>
      </widget>
     </widget>
