@@ -24,21 +24,31 @@ class Producto(Objeto):
     self.inicializar()
 
   def guardar(self):
-    query = self.query_insert + ' %s,%s,%s,%s,%s,%s,%s,%s,%s,%s '+self.query_insert_end
+    consulta = 'SELECT * FROM Producto WHERE producto_id = %s ;'
     conexion = self.conexion.getConnection()
     cursor= conexion.cursor()
-    cursor.execute(query,(str(self.id),self.descripcion,str(self.cantidad),str(self.precioUnit),str(self.precioC),str(self.precioV),str(self.existentes),str(self.pedidos),self.fecha,self.comentario))
-    conexion.commit()
-    cursor.close()
-    print query
-
+    cursor.execute(consulta, (self.id,))
+    if cursor.fetchone() is None:
+      print 'query'
+      query = self.query_insert + ' %s,%s,%s,%s,%s,%s,%s,%s,%s,%s '+self.query_insert_end
+      cursor.execute(query,(self.id,self.descripcion,str(self.cantidad),str(self.precioUnit),str(self.precioC),str(self.precioV),str(self.existentes),str(self.pedidos),str(self.fecha),self.comentario))
+      conexion.commit()
+      cursor.close()
+      print query
+    else:
+      cursor.close()
+      self.modificar() 
+     
   def modificar(self):
-    query = (self.query_update+' producto_nombre = %s , \
-        producto_precio = %s, producto_stock =%s'+self.query_update_end)
+    query = (self.query_update+' producto_descripcion = %s , \
+        producto_cantidadUnidad = %s, producto_precioVenta = %s, \
+	producto_precioCompra = %s, producto_precioImpuesto = %s, \
+	producto_unidadExistente = %s, producto_unidadPedida = %s, \
+	producto_fecha = %s, producto_comentario = %s'+self.query_update_end)
     print query
     conexion = self.conexion.getConnection()
     cursor= conexion.cursor()
-    cursor.execute(query,(self.nombre,self.precio,self.stock,self.id))
+    cursor.execute(query,(self.descripcion,str(self.cantidad),str(self.precioUnit),str(self.precioC),str(self.precioV),str(self.existentes),str(self.pedidos),str(self.fecha),self.comentario,self.id))
     conexion.commit()
     cursor.close()
 
