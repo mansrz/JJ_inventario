@@ -1,6 +1,13 @@
 from Conexion import *
 from objeto import *
 class Reporte(Objeto):
+  
+  #Factura
+  descuento = 0
+  pecioTotal = 0
+  
+
+  #Producto
   codigo = 0
   descripcion = ''
   cantidad = 0
@@ -25,11 +32,19 @@ class Reporte(Objeto):
   def __init__(self):
     self.inicializar()
 
-
+  
+  query = 'SELECT f.factura_id, p.producto_descripcion, p.producto_precioCompra, f.factura_fecha FROM Factura f \
+             INNER JOIN Detalle d ON d.detalle_factura = f.factura_id INNER JOIN Producto p ON d.detalle_producto = p.producto_id \
+             WHERE f.factura_id=3;'
   #FACTURA
   def consultar_ventaTodos(self):
+    tabla = ' factura'
+    self.inicializar()
     lista=[]
-    query = self.query_select_all
+    query = 'SELECT p.producto_id, p.producto_descripcion, d.detalle_cantidad, p.producto_precioVenta, d.detalle_descuento, f.factura_fecha \
+             FROM Factura f INNER JOIN Detalle d ON d.detalle_factura = f.factura_id INNER JOIN Producto p ON d.detalle_producto = \
+             p.producto_id ;'
+ 
     print query
     conexion = self.conexion.getConnection()
     cursor = conexion.cursor()
@@ -42,8 +57,11 @@ class Reporte(Objeto):
     print lista
     return lista
 
-  def consultar_By_Atribute(self,atribute,name):
+  def consultarVenta_By_Atribute(self,atribute,name):
     lista=[]
+    query = 'SELECT f.factura_id, p.producto_descripcion, p.producto_precioCompra, f.factura_fecha FROM Factura f \
+             INNER JOIN Detalle d ON d.detalle_factura = f.factura_id INNER JOIN Producto p ON d.detalle_producto = p.producto_id \
+             WHERE f.factura_id = %s;'
     query = self.query_search + name + self.query_search_end
     print query
     conexion = self.conexion.getConnection()
@@ -59,7 +77,7 @@ class Reporte(Objeto):
 
   
   #aqui saco las facturas entre esas fechas y de ahi quiero sacar lo productos de esas facturas 
-  def consultar_By_Date(self,desde,hasta,name):
+  def consultarVenta_By_Date(self,desde,hasta,name):
     tabla = ' factura'
     self.inicializar()
     lista=[]
@@ -89,16 +107,13 @@ class Reporte(Objeto):
   def mapearVentas(self, datarow):
     print self.id
     print datarow
-    self.id = datarow[0]
+    self.codigo = datarow[0]
     self.descripcion = datarow[1]
     self.cantidad = datarow[2]
     self.precioUnit = datarow[3]
-    self.precioC = datarow[4]
-    self.precioV = datarow[5]
-    self.existentes = datarow[6]
-    self.pedidos = datarow[7]
-    self.fecha = datarow[8]
-    self.comentario = datarow[9]
+    self.descuento = datarow[4]
+    self.precioTotal = datarow[5]
+    self.fecha = datarow[6]
 
 
 

@@ -616,7 +616,6 @@ class VentanaReporte(QtGui.QDialog, reporte_ui):
       self.reportes[2] = self.reportes[2] + float(producto_o.precioC)
       self.reportes[3] = self.reportes[3] + float(producto_o.precioV)
 
-<<<<<<< HEAD
       li = [producto_o.id, producto_o.descripcion,producto_o.cantidad, producto_o.precioUnit,producto_o.precioC,producto_o.precioV,producto_o.existentes,producto_o.pedidos,producto_o.fecha,producto_o.comentario]
       self.productos.append(li)
       row = []
@@ -689,11 +688,9 @@ class VentanaReporte(QtGui.QDialog, reporte_ui):
     self.txt_ventaTotal_2.setText(str(self.reportes[3]))
     self.reportes = [0,0,0,0]
 
-=======
-    def closeEvent(self, evnt):
-      print 'holi'
-      super(VentanaCliente, self).closeEvent(evnt)
->>>>>>> 10d2361ec444aaf0a77003604fa37d1c2fbba6ae
+  def closeEvent(self, evnt):
+    print 'holi'
+    super(VentanaCliente, self).closeEvent(evnt)
 
 class VentanaPrincipal(QtGui.QMainWindow, principal_ui):
   def __init__(self,parent=None):
