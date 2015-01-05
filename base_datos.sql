@@ -1,8 +1,6 @@
-CREATE DATABASE  IF NOT EXISTS `base_datos` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `base_datos`;
--- MySQL dump 10.13  Distrib 5.5.40, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.19, for linux-glibc2.5 (x86_64)
 --
--- Host: 127.0.0.1    Database: base_datos
+-- Host: localhost    Database: base_datos
 -- ------------------------------------------------------
 -- Server version	5.5.40-0ubuntu0.14.04.1
 
@@ -62,7 +60,9 @@ CREATE TABLE `Detalle` (
   `detalle_descuento` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`detalle_id`,`detalle_factura`),
   KEY `fk_Detalle_factura_idx` (`detalle_factura`),
-  KEY `fk_Detalle_Producto_idx` (`detalle_producto`)
+  KEY `fk_Detalle_Producto_idx` (`detalle_producto`),
+  CONSTRAINT `fk_Detalle_factura` FOREIGN KEY (`detalle_factura`) REFERENCES `Factura` (`factura_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Detalle_producto` FOREIGN KEY (`detalle_producto`) REFERENCES `Producto` (`producto_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -139,9 +139,15 @@ DROP TABLE IF EXISTS `Producto`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Producto` (
   `producto_id` int(11) NOT NULL,
-  `producto_nombre` varchar(45) NOT NULL,
-  `producto_precio` decimal(10,0) DEFAULT NULL,
-  `producto_stock` int(11) DEFAULT NULL,
+  `producto_descripcion` varchar(45) NOT NULL,
+  `producto_cantidadUnidad` int(10) DEFAULT NULL,
+  `producto_precioVenta` decimal(10,2) DEFAULT NULL,
+  `producto_precioCompra` decimal(10,2) NOT NULL,
+  `producto_precioImpuesto` decimal(10,2) DEFAULT NULL,
+  `producto_unidadExistente` int(10) DEFAULT NULL,
+  `producto_unidadPedida` int(10) DEFAULT NULL,
+  `producto_fecha` date DEFAULT NULL,
+  `producto_comentario` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`producto_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -152,7 +158,7 @@ CREATE TABLE `Producto` (
 
 LOCK TABLES `Producto` WRITE;
 /*!40000 ALTER TABLE `Producto` DISABLE KEYS */;
-INSERT INTO `Producto` VALUES (1,'Prod',23,4),(2,'Prod2',12,23);
+INSERT INTO `Producto` VALUES (1,'Prod',23,4.00,0.00,NULL,NULL,NULL,NULL,NULL),(2,'Prod2',12,23.00,0.00,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `Producto` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -165,4 +171,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-01-02 11:56:25
+-- Dump completed on 2015-01-04 17:43:31

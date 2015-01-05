@@ -88,8 +88,8 @@ class Objeto():
     print query
     conexion = self.conexion.getConnection()
     cursor = conexion.cursor()
-    #str(desde),str(hasta)
-    cursor.execute(query,('2005-01-01','2009-01-01'))
+    cursor.execute(query,(desde,hasta))
+    #cursor.execute(query,('2005-01-01','2009-01-01'))
     result = cursor.fetchall()
     print result
     lista = self.enlistar(result)

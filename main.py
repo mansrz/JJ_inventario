@@ -97,10 +97,30 @@ class VentanaProducto(QtGui.QDialog, producto_ui):
 
   def inicializar(self):
     self.btn_guardar.clicked.connect(self.guardar)
+    self.btn_limpiar.clicked.connect(self.limpiar)
     self.btn_eliminar_todo.clicked.connect(self.borrarTodo)
     self.btn_eliminar_selec.clicked.connect(self.borrarSelec)
+    self.tb_productos.doubleClicked.connect(self.elegir_dobleclick)
     self.btn_buscar.clicked.connect(self.buscar)
     self.cargarProductos()
+
+  def elegir_dobleclick(self):
+    selected = self.tb_productos.selectedIndexes()
+    self.selected_index = selected.__getitem__(0)
+    select = self.productos[self.selected_index.row()]
+    self.tabWidget.setCurrentWidget(self.tab_1)
+    
+    self.producto.id = select[0]
+    self.txt_codigo.setText(str(select[0]))
+    self.txt_descripcion.setText(str(select[1]))
+    self.txt_cantXunidad.setText(str(select[2]))
+    self.txt_precioCompra.setText(str(select[4]))
+    self.txt_precioVenta.setText(str(select[3]))
+    self.txt_precioImpuesto.setText(str(select[5]))
+    self.txt_uniExistencia.setText(str(select[6]))
+    self.txt_uniPedido.setText(str(select[7]))
+    self.txt_comentario.setPlainText(str(select[9]))
+    self.txt_fecha.setDateTime(QtCore.QDateTime(select[8]))
 
 
   def guardar(self):
@@ -258,7 +278,7 @@ class VentanaProducto(QtGui.QDialog, producto_ui):
         name= 'fecha'
         desde = self.txt_desde.date()
         hasta = self.txt_hasta.date()
-        self.cargarBusquedaFecha(str(desde.toPyDate),str(hasta.toPyDate),name)
+        self.cargarBusquedaFecha(str(desde.toPyDate()),str(hasta.toPyDate()),name)
     else: 
       self.cargarProductos()
   
