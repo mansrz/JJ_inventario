@@ -17,7 +17,11 @@ cliente_ui = uic.loadUiType('cliente.ui')[0]
 producto_ui = uic.loadUiType('producto.ui')[0]
 factura_ui = uic.loadUiType('factura.ui')[0]
 detalle_ui = uic.loadUiType('detalle.ui')[0]
+<<<<<<< HEAD
+estilo = open('st.stylesheet','r').read()
+=======
 reporte_ui = uic.loadUiType('reporte.ui')[0]
+>>>>>>> dd79bc641874d9b71ce435aca552e8dd17206623
 
 class VentanaDetalle(QtGui.QDialog, detalle_ui):
   detalle = Detalle()
@@ -29,6 +33,8 @@ class VentanaDetalle(QtGui.QDialog, detalle_ui):
     self.detalle = Detalle()
     self.producto = Producto()
     self.inicializar()
+    self.setStyleSheet(estilo )
+
   
   def inicializar(self):
     self.btn_guardar.clicked.connect(self.guardar)
@@ -55,6 +61,8 @@ class VentanaFactura(QtGui.QDialog, factura_ui):
     self.inicializar()
     self.connect(self, QtCore.SIGNAL('triggered()'), self.closeEvent)
     self.cbo_cliente.currentIndexChanged.connect(self.cambio_cliente)
+    self.setStyleSheet(estilo )
+
     print 'd'
 
   def cambio_cliente(self):
@@ -140,6 +148,8 @@ class VentanaProducto(QtGui.QDialog, producto_ui):
     QtGui.QDialog.__init__(self, parent)
     self.setupUi(self)
     self.inicializar()
+    self.setStyleSheet(estilo )
+
 
   def inicializar(self):
     self.btn_guardar.clicked.connect(self.guardar)
@@ -411,6 +421,7 @@ class VentanaCliente(QtGui.QDialog, cliente_ui):
     #self.tb_clientes.clicked.connect(self.elegir_click)
     self.tb_clientes.doubleClicked.connect(self.elegir_dobleclick)
     #self.buscar()
+    self.setStyleSheet(estilo )
     self.cargarClientes()
 
   #def elegir_click(self):
@@ -698,6 +709,7 @@ class VentanaPrincipal(QtGui.QMainWindow, principal_ui):
     self.setupUi(self)
     screen = QtGui.QDesktopWidget().screenGeometry()
     self.frame.move((screen.width()-self.frame.geometry().width())/2, (screen.height()-self.frame.geometry().height())/2)
+    self.setStyleSheet(estilo )
     self.inicializar()
 
   def inicializar(self):
