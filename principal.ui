@@ -66,40 +66,37 @@
      <height>25</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuMen">
+   <widget class="QMenu" name="menuReportes">
     <property name="title">
-     <string>Menú</string>
+     <string>Reportes</string>
     </property>
-    <addaction name="actionCr_ditos"/>
+    <addaction name="action_reporte"/>
    </widget>
    <widget class="QMenu" name="menuClientes">
     <property name="title">
      <string>Clientes</string>
     </property>
-    <addaction name="actionBuscar"/>
     <addaction name="action_cliente"/>
    </widget>
    <widget class="QMenu" name="menuInventario">
     <property name="title">
      <string>Inventario</string>
     </property>
-    <addaction name="actionBuscar_2"/>
     <addaction name="action_producto"/>
    </widget>
    <widget class="QMenu" name="menuFactura">
     <property name="title">
      <string>Factura</string>
     </property>
-    <addaction name="actionBuscar_3"/>
     <addaction name="action_factura"/>
    </widget>
-   <addaction name="menuMen"/>
+   <addaction name="menuReportes"/>
    <addaction name="menuClientes"/>
    <addaction name="menuInventario"/>
    <addaction name="menuFactura"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionCr_ditos">
+  <action name="action_reporte">
    <property name="text">
     <string>Créditos</string>
    </property>
@@ -141,6 +138,16 @@
    </property>
    <property name="priority">
     <enum>QAction::NormalPriority</enum>
+   </property>
+  </action>
+  <action name="action_facturas">
+   <property name="text">
+    <string>Facturas</string>
+   </property>
+  </action>
+  <action name="action_inventarios">
+   <property name="text">
+    <string>Inventario</string>
    </property>
   </action>
  </widget>

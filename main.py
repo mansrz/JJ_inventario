@@ -9,13 +9,19 @@ from Producto import *
 from Detalle import *
 from Factura import *
 from Modo import *
+from Reporte import *
+
 #Convert ui to Class
 principal_ui = uic.loadUiType('principal.ui')[0]
 cliente_ui = uic.loadUiType('cliente.ui')[0]
 producto_ui = uic.loadUiType('producto.ui')[0]
 factura_ui = uic.loadUiType('factura.ui')[0]
 detalle_ui = uic.loadUiType('detalle.ui')[0]
+<<<<<<< HEAD
 estilo = open('st.stylesheet','r').read()
+=======
+reporte_ui = uic.loadUiType('reporte.ui')[0]
+>>>>>>> dd79bc641874d9b71ce435aca552e8dd17206623
 
 class VentanaDetalle(QtGui.QDialog, detalle_ui):
   detalle = Detalle()
@@ -567,10 +573,138 @@ class VentanaCliente(QtGui.QDialog, cliente_ui):
     self.tb_clientes_eliminar.setModel(model)
     self.cliente.id = 0
 
+class VentanaReporte(QtGui.QDialog, reporte_ui):
+  
+  reporte = Reporte()
+  selected_index = -1 
+  productos = []
+  reportes = [0,0,0,0]
+  
+  def __init__(self, parent=None):
+    QtGui.QDialog.__init__(self, parent)
+    self.setupUi(self)
+    self.inicializar()
 
+  def inicializar(self):
+    self.btn_generar_inventario.clicked.connect(self.buscarProducto)
+    #self.btn_eliminar_todo.clicked.connect(self.borrarTodo)
+    #self.btn_eliminar_selec.clicked.connect(self.borrarSelec)
+    #self.btn_buscar.clicked.connect(self.buscar)
+    #self.tb_clientes.clicked.connect(self.elegir_click)
+    #self.tb_clientes.doubleClicked.connect(self.elegir_dobleclick)
+    self.cargarProductos()
+    
+  def buscarProducto(self):
+    
+    atribute= (str(self.txt_buscar_inventario.text())).strip()
+    name=''
+    print atribute   
+    if atribute != '':
+      if self.radioButton_codigoInventario.isChecked():
+        name= 'id'
+        self.cargarBusquedaInventario(atribute,name)
+      elif self.radioButton_descripcionInventario.isChecked():
+        name= 'descripcion'
+        self.cargarBusquedaInventario(atribute,name)
+      else:
+        self.cargarProductos()
+    elif self.radioButton_fechaInventario.isChecked():
+        name= 'fecha'
+        desde = self.txt_inventario_desde.date()
+        hasta = self.txt_inventario_hasta.date()
+        self.cargarBusquedaFechaInventario(str(desde.toPyDate()),str(hasta.toPyDate()),name)
+    else: 
+      self.cargarProductos()
+  
+  def cargarBusquedaFechaInventario(self,desde,hasta,name):
+    self.productos = []
+    model = QStandardItemModel()
+    model.setColumnCount(10)
+    model.setHorizontalHeaderLabels(self.reporte.headernames_producto)
+    for producto_o in self.reporte.consultar_By_Date(desde,hasta,name):
+      self.reportes[0] = self.reportes[0] + int(producto_o.cantidad)
+      self.reportes[1] = self.reportes[1] + float(producto_o.precioUnit)
+      self.reportes[2] = self.reportes[2] + float(producto_o.precioC)
+      self.reportes[3] = self.reportes[3] + float(producto_o.precioV)
+
+<<<<<<< HEAD
+      li = [producto_o.id, producto_o.descripcion,producto_o.cantidad, producto_o.precioUnit,producto_o.precioC,producto_o.precioV,producto_o.existentes,producto_o.pedidos,producto_o.fecha,producto_o.comentario]
+      self.productos.append(li)
+      row = []
+      for name in li:
+        item = QStandardItem(str(name))
+        item.setEditable(False)
+        row.append(item)
+	
+      model.appendRow(row)
+    self.tb_inventario.setModel(model)
+    self.cargarSumaInventario()
+    self.reporte.id = 0
+
+
+
+  def cargarBusquedaInventario(self,atribute,name):
+    self.productos = []
+    model = QStandardItemModel()
+    model.setColumnCount(10)
+    model.setHorizontalHeaderLabels(self.reporte.headernames_producto)
+    for producto_o in self.reporte.consultar_By_Atribute(atribute,name):
+      
+      self.reportes[0] = self.reportes[0] + int(producto_o.cantidad)
+      self.reportes[1] = self.reportes[1] + float(producto_o.precioUnit)
+      self.reportes[2] = self.reportes[2] + float(producto_o.precioC)
+      self.reportes[3] = self.reportes[3] + float(producto_o.precioV)
+
+      li = [producto_o.id, producto_o.descripcion,producto_o.cantidad, producto_o.precioUnit,producto_o.precioC,producto_o.precioV,producto_o.existentes,producto_o.pedidos,producto_o.fecha,producto_o.comentario]
+      self.productos.append(li)
+      row = []
+      for name in li:
+        item = QStandardItem(str(name))
+        item.setEditable(False)
+        row.append(item)
+	
+      model.appendRow(row)
+    self.tb_inventario.setModel(model)
+    self.cargarSumaInventario()
+    self.reporte.id = 0
+ 
+
+  def cargarProductos(self):
+    self.productos = []
+    model = QStandardItemModel()
+    model.setColumnCount(10)
+    model.setHorizontalHeaderLabels(self.reporte.headernames_producto)
+    for producto_o in self.reporte.consultar_productoTodos():
+      self.reportes[0] = self.reportes[0] + int(producto_o.cantidad)
+      self.reportes[1] = self.reportes[1] + float(producto_o.precioUnit)
+      self.reportes[2] = self.reportes[2] + float(producto_o.precioC)
+      self.reportes[3] = self.reportes[3] + float(producto_o.precioV)
+
+      li = [producto_o.id, producto_o.descripcion,producto_o.cantidad, producto_o.precioUnit,producto_o.precioC,producto_o.precioV,producto_o.existentes,producto_o.pedidos,producto_o.fecha,producto_o.comentario]
+      self.productos.append(li)
+      row = []
+      for name in li:
+        item = QStandardItem(str(name))
+        item.setEditable(False)
+        row.append(item)
+	
+      model.appendRow(row)
+    self.tb_inventario.setModel(model)
+    self.cargarSumaInventario()
+    self.reporte.id = 0
+
+  def cargarSumaInventario(self):
+    self.txt_cantidadTotal_2.setText(str(self.reportes[0]))
+    self.txt_unidadTotal_2.setText(str(self.reportes[1]))
+    self.txt_compraTotal_2.setText(str(self.reportes[2]))
+    self.txt_ventaTotal_2.setText(str(self.reportes[3]))
+    self.reportes = [0,0,0,0]
+
+=======
     def closeEvent(self, evnt):
       print 'holi'
       super(VentanaCliente, self).closeEvent(evnt)
+>>>>>>> 10d2361ec444aaf0a77003604fa37d1c2fbba6ae
 
 class VentanaPrincipal(QtGui.QMainWindow, principal_ui):
   def __init__(self,parent=None):
@@ -585,7 +719,12 @@ class VentanaPrincipal(QtGui.QMainWindow, principal_ui):
     self.action_cliente.triggered.connect(self.Abrir_cliente)
     self.action_producto.triggered.connect(self.Abrir_producto)
     self.action_factura.triggered.connect(self.Abrir_factura)
-
+    self.action_reporte.triggered.connect(self.Abrir_reporte)
+  
+  def Abrir_reporte(self):
+    reporte = VentanaReporte()
+    reporte.exec_()
+  
   def Abrir_factura(self):
     factura = VentanaFactura()
     factura.exec_()
