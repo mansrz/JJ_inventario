@@ -26,21 +26,22 @@ class VentanaDetalle(QtGui.QDialog, detalle_ui):
   def __init__(self, parent=None):
     QtGui.QDialog.__init__(self, parent)
     self.setupUi(self)
+    self.detalle = Detalle()
+    self.producto = Producto()
     self.inicializar()
   
   def inicializar(self):
     self.btn_guardar.clicked.connect(self.guardar)
     productos = self.producto.consultar_todos()
-    print len(productos)
     for p in productos:
-      self.cbo_producto.addItem(p.nombre,p.id)
-    pass
+      self.cbo_producto.addItem(p.descripcion,p.id)
 
   def guardar(self):
     self.detalle.producto.id = (self.cbo_producto.currentIndex()+1)
-    self.detalle.cantidad = str(self.txt_cantidad.text())
-    self.detalle.descuento = str(self.txt_descuento.text())
-    self.detalle.producto.consultar()
+    cantidad =  str(self.txt_cantidad.text())
+    self.detalle.cantidad = cantidad if len(cantidad)>0 else 0
+    descuento = str(self.txt_descuento.text())
+    self.detalle.descuento = descuento if len(descuento)>0 else 0
     self.close()
 
 class VentanaFactura(QtGui.QDialog, factura_ui):
@@ -49,34 +50,73 @@ class VentanaFactura(QtGui.QDialog, factura_ui):
   def __init__(self, parent=None):
     QtGui.QDialog.__init__(self, parent)
     self.setupUi(self)
+    self.factura = Factura()
+    self.detalles = []
     self.inicializar()
+    self.connect(self, QtCore.SIGNAL('triggered()'), self.closeEvent)
+    self.cbo_cliente.currentIndexChanged.connect(self.cambio_cliente)
+    print 'd'
+
+  def cambio_cliente(self):
+    id = (self.cbo_cliente.itemData(self.cbo_cliente.currentIndex())).toInt()
+    print id[0]
+    cliente = Cliente()
+    cliente.id =id[0]
+    cliente.consultar()
+    self.txt_cedula.setText( cliente.cedula)
+    self.txt_direccion.setText(cliente.direccion)
+
+  def closeEvent(self, event):
+    print "Closing"
 
   def inicializar(self):
     self.btn_agregar.clicked.connect(self.agregar)
+    self.btn_guardar.clicked.connect(self.guardar)
     cliente = Cliente()
     modo = Modo()
     for p in cliente.consultar_todos():
       self.cbo_cliente.addItem(p.nombre,p.id)
     for p in modo.consultar_todos():
       self.cbo_modo.addItem(p.nombre,p.id)
+    self.cambio_cliente()
  
-     
+  def guardar(self):
+    self.factura.modo.id  = (self.cbo_modo.currentIndex()+1)
+    self.factura.cliente.id = (self.cbo_cliente.currentIndex()+1)
+    self.factura.detalles = self.detalles
+    var_time = self.date_fecha.date()
+    self.factura.fecha = var_time.toPyDate()
+    self.factura.guardar()
+
+
   def agregar(self):
     detalle = VentanaDetalle()
     detalle.exec_()
-    d = detalle.detalle
+    d = Detalle()
+    d.producto = Producto()
+    d.producto.id = detalle.detalle.producto.id
+    d.cantidad = detalle.detalle.cantidad
+    d.descuento = detalle.detalle.descuento
+    d.producto.consultar()
     self.detalles.append(d)
-    d = None
-    print d
-    detalle = None
     self.actualizar()
    
   def actualizar(self):
+    total = 0
+    dcto = 0
     model = QStandardItemModel()
-    model.setColumnCount(3)
-    model.setHorizontalHeaderLabels(Detalle.headernames)
+    model.setColumnCount(6)
+    headernames = ['Codigo','Producto','Precio', 'Cantidad','Descuento','Total']
+    model.setHorizontalHeaderLabels(headernames)
     for d in self.detalles:
-      li = [d.producto.nombre, d.cantidad, d.descuento]
+      li = [d.producto.codigo, d.producto.descripcion, d.producto.precioUnit, d.cantidad, d.descuento, (float(d.producto.precioUnit)*float(d.cantidad)) -float(d.descuento)]
+      print d.producto.precioV
+      print d.cantidad
+      print d.descuento
+      if d.producto.precioV is None:
+        d.producto.precioV = d.producto.precioUnit
+      total = total + (float(d.producto.precioV)*float(d.cantidad)) - float(d.descuento)
+      dcto = dcto + float(d.descuento)
       row = []
       for name in li:
         item = QStandardItem(str(name))
@@ -84,8 +124,11 @@ class VentanaFactura(QtGui.QDialog, factura_ui):
         row.append(item)
       model.appendRow(row)
     self.tb_detalles.setModel(model)
-
-
+    iva = (total * 12) / 100
+    self.txt_iva.setText(str(iva))
+    self.txt_total.setText(str(total+iva))
+    self.txt_dscto.setText(str(dcto))
+   
 
 
 class VentanaProducto(QtGui.QDialog, producto_ui):
@@ -573,6 +616,7 @@ class VentanaReporte(QtGui.QDialog, reporte_ui):
       self.reportes[2] = self.reportes[2] + float(producto_o.precioC)
       self.reportes[3] = self.reportes[3] + float(producto_o.precioV)
 
+<<<<<<< HEAD
       li = [producto_o.id, producto_o.descripcion,producto_o.cantidad, producto_o.precioUnit,producto_o.precioC,producto_o.precioV,producto_o.existentes,producto_o.pedidos,producto_o.fecha,producto_o.comentario]
       self.productos.append(li)
       row = []
@@ -645,6 +689,11 @@ class VentanaReporte(QtGui.QDialog, reporte_ui):
     self.txt_ventaTotal_2.setText(str(self.reportes[3]))
     self.reportes = [0,0,0,0]
 
+=======
+    def closeEvent(self, evnt):
+      print 'holi'
+      super(VentanaCliente, self).closeEvent(evnt)
+>>>>>>> 10d2361ec444aaf0a77003604fa37d1c2fbba6ae
 
 class VentanaPrincipal(QtGui.QMainWindow, principal_ui):
   def __init__(self,parent=None):

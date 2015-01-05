@@ -17,12 +17,19 @@ class Factura(Objeto):
     self.inicializar()
 
   def guardar(self):
+    id = str(self.contar())
     query = self.query_insert + ' %s,%s,%s,%s,%s '+self.query_insert_end
     conexion = self.conexion.getConnection()
     cursor= conexion.cursor()
-    cursor.execute(query,(str(self.contar()),self.cliente.id,self.fecha,self.modo.id,self.transaccion))
+    cursor.execute(query,(id,self.cliente.id,self.fecha,self.modo.id,self.transaccion))
     conexion.commit()
     cursor.close()
+    i = 1
+    for detalle in self.detalles:
+      detalle.factura = id
+      detalle.id = i
+      detalle.guardar()
+      i = i+1
     print query
 
   def modificar(self):

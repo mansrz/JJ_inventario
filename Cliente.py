@@ -79,10 +79,19 @@ class Cliente(Objeto):
 
   def mapeardatos(self, datarow):
     self.id = datarow[0]
+    print self.id
     self.nombre = datarow[1]
+    print self.nombre
     self.apellido = datarow[2]
-    self.direccion = datarow[4]
-    self.nacimiento = datarow[5]
-    self.telefono = datarow[6]
-    self.mail = datarow[7]
-    self.cedula = datarow[3]
+    print self.apellido
+    self.direccion = datarow[3]
+    print self.direccion
+    self.nacimiento = datarow[4]
+    print self.nacimiento
+    self.telefono = datarow[5]
+    print self.telefono
+    self.mail = datarow[6]
+    print self.mail
+    self.cedula = datarow[7]
+    print self.cedula
+
