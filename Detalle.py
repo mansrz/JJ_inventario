@@ -20,7 +20,7 @@ class Detalle(Objeto):
     query = self.query_insert + '%s,%s,%s,%s,%s '+self.query_insert_end
     conexion = self.conexion.getConnection()
     cursor= conexion.cursor()
-    cursor.execute(query,(str(self.contar()),self.factura,self.producto.id,self.cantidad,self.descuento))
+    cursor.execute(query,(self.id,self.factura,self.producto.id,self.cantidad,self.descuento))
     conexion.commit()
     cursor.close()
     print query
