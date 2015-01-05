@@ -234,6 +234,13 @@
          </item>
          <item>
           <widget class="QDateEdit" name="txt_nacimiento">
+           <property name="minimumDate">
+            <date>
+             <year>2014</year>
+             <month>9</month>
+             <day>16</day>
+            </date>
+           </property>
            <property name="calendarPopup">
             <bool>true</bool>
            </property>

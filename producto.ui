@@ -354,6 +354,13 @@
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
           <widget class="QDateEdit" name="txt_fecha">
+           <property name="minimumDate">
+            <date>
+             <year>2014</year>
+             <month>9</month>
+             <day>25</day>
+            </date>
+           </property>
            <property name="calendarPopup">
             <bool>true</bool>
            </property>

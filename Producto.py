@@ -70,6 +70,7 @@ class Producto(Objeto):
     print self.id
     print datarow
     self.id = datarow[0]
+    self.codigo = datarow[0]
     self.descripcion = datarow[1]
     self.cantidad = datarow[2]
     self.precioUnit = datarow[3]
