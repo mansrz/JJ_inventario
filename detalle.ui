@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>437</width>
-    <height>330</height>
+    <width>402</width>
+    <height>260</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,10 +19,10 @@
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>20</x>
      <y>10</y>
-     <width>421</width>
-     <height>311</height>
+     <width>361</width>
+     <height>241</height>
     </rect>
    </property>
    <widget class="QGroupBox" name="gb_detalle">
@@ -35,7 +35,10 @@
      </rect>
     </property>
     <property name="title">
-     <string>Detalle</string>
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
     <widget class="QComboBox" name="cbo_producto">
      <property name="geometry">
@@ -110,13 +113,31 @@
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>200</y>
+       <y>190</y>
        <width>98</width>
        <height>27</height>
       </rect>
      </property>
      <property name="text">
       <string>Guardar</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>0</y>
+       <width>191</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>17</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Agregar Producto</string>
      </property>
     </widget>
    </widget>

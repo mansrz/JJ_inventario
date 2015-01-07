@@ -230,6 +230,9 @@
          </item>
          <item>
           <widget class="QLineEdit" name="txt_precioImpuesto">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string/>
            </property>
@@ -412,7 +415,7 @@
       <property name="geometry">
        <rect>
         <x>300</x>
-        <y>243</y>
+        <y>235</y>
         <width>21</width>
         <height>27</height>
        </rect>

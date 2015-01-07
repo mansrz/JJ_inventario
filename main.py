@@ -17,11 +17,8 @@ cliente_ui = uic.loadUiType('cliente.ui')[0]
 producto_ui = uic.loadUiType('producto.ui')[0]
 factura_ui = uic.loadUiType('factura.ui')[0]
 detalle_ui = uic.loadUiType('detalle.ui')[0]
-<<<<<<< HEAD
 estilo = open('st.stylesheet','r').read()
-=======
 reporte_ui = uic.loadUiType('reporte.ui')[0]
->>>>>>> dd79bc641874d9b71ce435aca552e8dd17206623
 
 class VentanaDetalle(QtGui.QDialog, detalle_ui):
   detalle = Detalle()
@@ -43,11 +40,16 @@ class VentanaDetalle(QtGui.QDialog, detalle_ui):
       self.cbo_producto.addItem(p.descripcion,p.id)
 
   def guardar(self):
-    self.detalle.producto.id = (self.cbo_producto.currentIndex()+1)
+    self.detalle.producto.id = (self.cbo_producto.itemData(self.cbo_producto.currentIndex())).toInt()[0]
+    self.detalle.producto.consultar()
     cantidad =  str(self.txt_cantidad.text())
     self.detalle.cantidad = cantidad if len(cantidad)>0 else 0
     descuento = str(self.txt_descuento.text())
     self.detalle.descuento = descuento if len(descuento)>0 else 0
+    print self.detalle.cantidad
+    print self.detalle.producto.cantidad
+    if (self.detalle.cantidad > self.detalle.producto.existentes):
+      self.detalle.cantidad = 0
     self.close()
 
 class VentanaFactura(QtGui.QDialog, factura_ui):
@@ -62,8 +64,13 @@ class VentanaFactura(QtGui.QDialog, factura_ui):
     self.connect(self, QtCore.SIGNAL('triggered()'), self.closeEvent)
     self.cbo_cliente.currentIndexChanged.connect(self.cambio_cliente)
     self.setStyleSheet(estilo )
+  
 
-    print 'd'
+  def vuelto(self):
+    total = self.txt_total.text()
+    if len(total) != 0 :
+      vuelto = str(float(self.txt_pago.text()) - float(total))
+      self.txt_return.setText(vuelto)
 
   def cambio_cliente(self):
     id = (self.cbo_cliente.itemData(self.cbo_cliente.currentIndex())).toInt()
@@ -80,6 +87,7 @@ class VentanaFactura(QtGui.QDialog, factura_ui):
   def inicializar(self):
     self.btn_agregar.clicked.connect(self.agregar)
     self.btn_guardar.clicked.connect(self.guardar)
+    self.txt_pago.textChanged.connect(self.vuelto)
     cliente = Cliente()
     modo = Modo()
     for p in cliente.consultar_todos():
@@ -101,6 +109,9 @@ class VentanaFactura(QtGui.QDialog, factura_ui):
     detalle = VentanaDetalle()
     detalle.exec_()
     d = Detalle()
+    print d.producto
+    if d.producto is None:
+      return 0
     d.producto = Producto()
     d.producto.id = detalle.detalle.producto.id
     d.cantidad = detalle.detalle.cantidad
@@ -114,7 +125,7 @@ class VentanaFactura(QtGui.QDialog, factura_ui):
     dcto = 0
     model = QStandardItemModel()
     model.setColumnCount(6)
-    headernames = ['Codigo','Producto','Precio', 'Cantidad','Descuento','Total']
+    headernames = ['Codigo','Descripcion','Precio', 'Cantidad','Descuento','Total']
     model.setHorizontalHeaderLabels(headernames)
     for d in self.detalles:
       li = [d.producto.codigo, d.producto.descripcion, d.producto.precioUnit, d.cantidad, d.descuento, (float(d.producto.precioUnit)*float(d.cantidad)) -float(d.descuento)]
@@ -123,7 +134,7 @@ class VentanaFactura(QtGui.QDialog, factura_ui):
       print d.descuento
       if d.producto.precioV is None:
         d.producto.precioV = d.producto.precioUnit
-      total = total + (float(d.producto.precioV)*float(d.cantidad)) - float(d.descuento)
+      total = total + (float(d.producto.precioUnit)*float(d.cantidad)) - float(d.descuento)
       dcto = dcto + float(d.descuento)
       row = []
       for name in li:
@@ -131,7 +142,10 @@ class VentanaFactura(QtGui.QDialog, factura_ui):
         item.setEditable(False)
         row.append(item)
       model.appendRow(row)
+    #self.tb_detalles.resizeColumnsToContents()
+    #self.tb_detalles.horizontalHeader().stretchLastSection()
     self.tb_detalles.setModel(model)
+    self.tb_detalles.setColumnWidth(1,250)
     iva = (total * 12) / 100
     self.txt_iva.setText(str(iva))
     self.txt_total.setText(str(total+iva))
@@ -159,6 +173,16 @@ class VentanaProducto(QtGui.QDialog, producto_ui):
     self.tb_productos.doubleClicked.connect(self.elegir_dobleclick)
     self.btn_buscar.clicked.connect(self.buscar)
     self.cargarProductos()
+    self.btn_impuesto.clicked.connect(self.calcularImpuesto)
+  
+  def calcularImpuesto(self):
+    try:
+      imp = float(self.txt_precioVenta.text())
+      imp = imp + (imp * (0.12))
+      self.txt_precioImpuesto.setText(str(imp))
+    except:
+      QMessageBox.about(self,"Error","Ingrese un Precio de Venta")
+
 
   def elegir_dobleclick(self):
     selected = self.tb_productos.selectedIndexes()
@@ -584,15 +608,21 @@ class VentanaReporte(QtGui.QDialog, reporte_ui):
     QtGui.QDialog.__init__(self, parent)
     self.setupUi(self)
     self.inicializar()
+    self.setStyleSheet(estilo )
 
   def inicializar(self):
     self.btn_generar_inventario.clicked.connect(self.buscarProducto)
-    #self.btn_eliminar_todo.clicked.connect(self.borrarTodo)
+    self.btn_generar_venta.clicked.connect(self.buscarVenta)
     #self.btn_eliminar_selec.clicked.connect(self.borrarSelec)
     #self.btn_buscar.clicked.connect(self.buscar)
     #self.tb_clientes.clicked.connect(self.elegir_click)
     #self.tb_clientes.doubleClicked.connect(self.elegir_dobleclick)
     self.cargarProductos()
+    self.cargarVentas()
+    modo = Modo()
+    for p in modo.consultar_todos():
+      self.cbo_modo.addItem(p.nombre,p.id)
+
     
   def buscarProducto(self):
     
@@ -615,7 +645,110 @@ class VentanaReporte(QtGui.QDialog, reporte_ui):
         self.cargarBusquedaFechaInventario(str(desde.toPyDate()),str(hasta.toPyDate()),name)
     else: 
       self.cargarProductos()
+
+  def buscarVenta(self):
+    
+    atribute= (str(self.txt_buscar_venta.text())).strip()
+    print atribute   
+    if atribute != '':
+      if self.radioButton_nFactura.isChecked():
+        print 'NUMERO FACTURA'
+        self.cargarBusquedaVenta(atribute)
+      else:
+        self.cargarVentas()
+    elif self.radioButton_fechaFactura.isChecked():
+      print 'fecha'
+      desde = self.txt_factura_desde.date()
+      hasta = self.txt_factura_hasta.date()
+      self.cargarBusquedaFechaVenta(str(desde.toPyDate()),str(hasta.toPyDate()))
+    elif self.radioButton_pagoFactura.isChecked():
+      print 'Modo Factura'
+      atribute = self.cbo_modo.currentIndex()+1
+      self.cargarBusquedaModoVenta(atribute)
+
+    else: 
+      print('VENTAASS')
+      self.cargarVentas()
+
   
+  def cargarBusquedaFechaVenta(self,desde,hasta):
+    self.productos = []
+    model = QStandardItemModel()
+    model.setColumnCount(10)
+    model.setHorizontalHeaderLabels(self.reporte.headernames_producto)
+    for producto_o in self.reporte.consultarVenta_By_Date(desde,hasta):
+      self.reportes[0] = self.reportes[0] + int(producto_o.cantidad)
+      self.reportes[1] = self.reportes[1] + float(producto_o.precioUnit)
+      self.reportes[2] = self.reportes[2] + float(producto_o.precioC)
+      self.reportes[3] = self.reportes[3] + float(producto_o.precioV)
+
+      li = [producto_o.codigo, producto_o.descripcion,producto_o.cantidad, producto_o.precioUnit,producto_o.precioC,producto_o.precioV,producto_o.existentes,producto_o.pedidos,producto_o.fecha,producto_o.comentario]
+      self.productos.append(li)
+      row = []
+      for name in li:
+        item = QStandardItem(str(name))
+        item.setEditable(False)
+        row.append(item)
+	
+      model.appendRow(row)
+    self.tb_ventas.setModel(model)
+    self.cargarSumaInventario()
+    self.reporte.id = 0
+
+  
+  
+  def cargarBusquedaModoVenta(self,atribute):
+    self.ventas = []
+    model = QStandardItemModel()
+    model.setColumnCount(7)
+    model.setHorizontalHeaderLabels(self.reporte.headernames_venta)
+    for producto_o in self.reporte.consultarVenta_By_Mode(atribute):
+      self.reportes[0] = self.reportes[0] + int(producto_o.cantidad)
+      self.reportes[1] = self.reportes[1] + float(producto_o.descuento)
+      self.reportes[2] = self.reportes[2] + float(producto_o.precioC)
+      self.reportes[3] = self.reportes[3] + float(producto_o.precioTotal)
+
+      li = [producto_o.codigo, producto_o.descripcion,producto_o.cantidad, producto_o.precioUnit,producto_o.descuento,producto_o.precioTotal,producto_o.fecha]
+      self.productos.append(li)
+      row = []
+      for name in li:
+        item = QStandardItem(str(name))
+        item.setEditable(False)
+        row.append(item)
+	
+      model.appendRow(row)
+    self.tb_ventas.setModel(model)
+    self.cargarSumaVenta()
+    self.reporte.id = 0
+
+
+
+  def cargarBusquedaVenta(self,atribute):
+    self.ventas = []
+    model = QStandardItemModel()
+    model.setColumnCount(7)
+    model.setHorizontalHeaderLabels(self.reporte.headernames_venta)
+    for producto_o in self.reporte.consultarVenta_By_Atribute(atribute):
+      self.reportes[0] = self.reportes[0] + int(producto_o.cantidad)
+      self.reportes[1] = self.reportes[1] + float(producto_o.descuento)
+      self.reportes[2] = self.reportes[2] + float(producto_o.precioC)
+      self.reportes[3] = self.reportes[3] + float(producto_o.precioTotal)
+
+      li = [producto_o.codigo, producto_o.descripcion,producto_o.cantidad, producto_o.precioUnit,producto_o.descuento,producto_o.precioTotal,producto_o.fecha]
+      self.productos.append(li)
+      row = []
+      for name in li:
+        item = QStandardItem(str(name))
+        item.setEditable(False)
+        row.append(item)
+	
+      model.appendRow(row)
+    self.tb_ventas.setModel(model)
+    self.cargarSumaVenta()
+    self.reporte.id = 0
+   
+
+
   def cargarBusquedaFechaInventario(self,desde,hasta,name):
     self.productos = []
     model = QStandardItemModel()
@@ -668,6 +801,32 @@ class VentanaReporte(QtGui.QDialog, reporte_ui):
     self.reporte.id = 0
  
 
+  def cargarVentas(self):
+    self.ventas = []
+    model = QStandardItemModel()
+    model.setColumnCount(7)
+    model.setHorizontalHeaderLabels(self.reporte.headernames_venta)
+    for producto_o in self.reporte.consultar_ventaTodos():
+      self.reportes[0] = self.reportes[0] + int(producto_o.cantidad)
+      self.reportes[1] = self.reportes[1] + float(producto_o.descuento)
+      self.reportes[2] = self.reportes[2] + float(producto_o.precioC)
+      self.reportes[3] = self.reportes[3] + float(producto_o.precioTotal)
+
+      li = [producto_o.codigo, producto_o.descripcion,producto_o.cantidad, producto_o.precioUnit,producto_o.descuento,producto_o.precioTotal,producto_o.fecha]
+      self.productos.append(li)
+      row = []
+      for name in li:
+        item = QStandardItem(str(name))
+        item.setEditable(False)
+        row.append(item)
+	
+      model.appendRow(row)
+    self.tb_ventas.setModel(model)
+    self.cargarSumaVenta()
+    self.reporte.id = 0
+
+  
+  
   def cargarProductos(self):
     self.productos = []
     model = QStandardItemModel()
@@ -692,6 +851,14 @@ class VentanaReporte(QtGui.QDialog, reporte_ui):
     self.cargarSumaInventario()
     self.reporte.id = 0
 
+  def cargarSumaVenta(self):
+    self.txt_cantidadTotal.setText(str(self.reportes[0]))
+    self.txt_descuentoTotal.setText(str(self.reportes[1]))
+    self.txt_compraTotal.setText(str(self.reportes[2]))
+    self.txt_ventaTotal.setText(str(self.reportes[3]))
+    self.reportes = [0,0,0,0]
+
+  
   def cargarSumaInventario(self):
     self.txt_cantidadTotal_2.setText(str(self.reportes[0]))
     self.txt_unidadTotal_2.setText(str(self.reportes[1]))
@@ -701,7 +868,7 @@ class VentanaReporte(QtGui.QDialog, reporte_ui):
 
   def closeEvent(self, evnt):
     print 'holi'
-    super(VentanaCliente, self).closeEvent(evnt)
+    #super(VentanaCliente, self).closeEvent(evnt)
 
 class VentanaPrincipal(QtGui.QMainWindow, principal_ui):
   def __init__(self,parent=None):

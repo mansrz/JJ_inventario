@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>788</width>
-    <height>611</height>
+    <height>640</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,14 +22,14 @@
      <x>10</x>
      <y>10</y>
      <width>771</width>
-     <height>591</height>
+     <height>631</height>
     </rect>
    </property>
    <widget class="QWidget" name="widget_2" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
+      <y>10</y>
       <width>771</width>
       <height>181</height>
      </rect>
@@ -40,17 +40,17 @@
        <x>10</x>
        <y>10</y>
        <width>751</width>
-       <height>161</height>
+       <height>171</height>
       </rect>
      </property>
      <property name="title">
-      <string>Factura</string>
+      <string/>
      </property>
      <widget class="QComboBox" name="cbo_cliente">
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>30</y>
+        <y>40</y>
         <width>171</width>
         <height>27</height>
        </rect>
@@ -60,7 +60,7 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>30</y>
+        <y>40</y>
         <width>66</width>
         <height>17</height>
        </rect>
@@ -73,7 +73,7 @@
       <property name="geometry">
        <rect>
         <x>530</x>
-        <y>30</y>
+        <y>40</y>
         <width>171</width>
         <height>27</height>
        </rect>
@@ -83,7 +83,7 @@
       <property name="geometry">
        <rect>
         <x>410</x>
-        <y>30</y>
+        <y>40</y>
         <width>111</width>
         <height>17</height>
        </rect>
@@ -96,7 +96,7 @@
       <property name="geometry">
        <rect>
         <x>410</x>
-        <y>70</y>
+        <y>90</y>
         <width>66</width>
         <height>17</height>
        </rect>
@@ -109,7 +109,7 @@
       <property name="geometry">
        <rect>
         <x>530</x>
-        <y>70</y>
+        <y>90</y>
         <width>171</width>
         <height>27</height>
        </rect>
@@ -128,21 +128,21 @@
      <widget class="QPushButton" name="btn_agregar">
       <property name="geometry">
        <rect>
-        <x>580</x>
-        <y>110</y>
-        <width>121</width>
+        <x>490</x>
+        <y>140</y>
+        <width>131</width>
         <height>27</height>
        </rect>
       </property>
       <property name="text">
-       <string>Agregar Detalle</string>
+       <string>Agregar Producto</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>70</y>
+        <y>90</y>
         <width>66</width>
         <height>17</height>
        </rect>
@@ -158,7 +158,7 @@
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>70</y>
+        <y>90</y>
         <width>171</width>
         <height>27</height>
        </rect>
@@ -171,7 +171,7 @@
       <property name="geometry">
        <rect>
         <x>30</x>
-        <y>110</y>
+        <y>140</y>
         <width>66</width>
         <height>17</height>
        </rect>
@@ -187,7 +187,7 @@
       <property name="geometry">
        <rect>
         <x>100</x>
-        <y>110</y>
+        <y>140</y>
         <width>171</width>
         <height>27</height>
        </rect>
@@ -196,13 +196,34 @@
        <bool>true</bool>
       </property>
      </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>270</x>
+        <y>0</y>
+        <width>201</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>FACTURA</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="widget_3" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>190</y>
+      <y>200</y>
       <width>771</width>
       <height>251</height>
      </rect>
@@ -211,7 +232,7 @@
      <property name="geometry">
       <rect>
        <x>0</x>
-       <y>0</y>
+       <y>10</y>
        <width>761</width>
        <height>241</height>
       </rect>
@@ -222,92 +243,146 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>440</y>
+      <y>450</y>
       <width>771</width>
-      <height>141</height>
+      <height>171</height>
      </rect>
     </property>
-    <widget class="QLabel" name="label_4">
+    <widget class="QPushButton" name="btn_limpiar">
      <property name="geometry">
       <rect>
-       <x>540</x>
-       <y>70</y>
-       <width>66</width>
-       <height>17</height>
+       <x>190</x>
+       <y>130</y>
+       <width>141</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
-      <string>Total:</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="txt_total">
-     <property name="geometry">
-      <rect>
-       <x>650</x>
-       <y>70</y>
-       <width>113</width>
-       <height>27</height>
-      </rect>
+      <string>Limpiar</string>
      </property>
     </widget>
     <widget class="QPushButton" name="btn_guardar">
      <property name="geometry">
       <rect>
-       <x>320</x>
-       <y>100</y>
-       <width>98</width>
-       <height>27</height>
+       <x>400</x>
+       <y>130</y>
+       <width>141</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
       <string>Guardar</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_7">
+    <widget class="QWidget" name="verticalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>540</x>
-       <y>4</y>
-       <width>81</width>
-       <height>17</height>
+       <x>510</x>
+       <y>20</y>
+       <width>91</width>
+       <height>101</height>
       </rect>
      </property>
-     <property name="text">
-      <string>Descuento:</string>
-     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="label_7">
+        <property name="text">
+         <string>Descuento:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>I.V.A:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Total:</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
-    <widget class="QLineEdit" name="txt_dscto">
+    <widget class="QWidget" name="verticalLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>650</x>
-       <y>4</y>
-       <width>113</width>
-       <height>27</height>
+       <x>600</x>
+       <y>20</y>
+       <width>160</width>
+       <height>95</height>
       </rect>
      </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLineEdit" name="txt_dscto">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="txt_iva">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="txt_total"/>
+      </item>
+     </layout>
     </widget>
-    <widget class="QLineEdit" name="txt_iva">
+    <widget class="QWidget" name="verticalLayoutWidget_3">
      <property name="geometry">
       <rect>
-       <x>650</x>
-       <y>40</y>
-       <width>113</width>
-       <height>27</height>
+       <x>30</x>
+       <y>30</y>
+       <width>71</width>
+       <height>91</height>
       </rect>
      </property>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item>
+       <widget class="QLabel" name="label_9">
+        <property name="text">
+         <string>Pagó con:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string>Devolver:</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
-    <widget class="QLabel" name="label_8">
+    <widget class="QWidget" name="verticalLayoutWidget_4">
      <property name="geometry">
       <rect>
-       <x>540</x>
-       <y>40</y>
-       <width>81</width>
-       <height>17</height>
+       <x>100</x>
+       <y>20</y>
+       <width>191</width>
+       <height>111</height>
       </rect>
      </property>
-     <property name="text">
-      <string>I.V.A:</string>
-     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QLineEdit" name="txt_pago"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="txt_return">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </widget>
   </widget>

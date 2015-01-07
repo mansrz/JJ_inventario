@@ -105,8 +105,10 @@ class Objeto():
     print query
     conexion = self.conexion.getConnection()
     cursor = conexion.cursor()
+    print self.id 
     cursor.execute(query,(self.id,))
     result = cursor.fetchall()
+    print result
     self.mapeardatos(result[0])
     cursor.close()
  

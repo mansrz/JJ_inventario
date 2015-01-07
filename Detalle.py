@@ -23,6 +23,9 @@ class Detalle(Objeto):
     cursor.execute(query,(self.id,self.factura,self.producto.id,self.cantidad,self.descuento))
     conexion.commit()
     cursor.close()
+    self.producto.consultar()
+    self.producto.existentes = float(self.producto.existentes) - float(self.cantidad)
+    self.producto.modificar()
     print query
 
   def modificar(self):
